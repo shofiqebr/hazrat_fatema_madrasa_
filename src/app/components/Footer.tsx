@@ -50,9 +50,9 @@ const Footer = () => {
   ];
 
   return (
-    <div className="lg:h-[670px] h-[1900px] md:h-[1500px] relative">
+    <div className="lg:h-[800px] h-[1900px] md:h-[1500px] relative">
       <div className="bg-gradient-to-b from-red-50 to-red-200 h-full w-full opacity-90" />
-      <div className="max-w-7xl mx-auto z-10 absolute top-0 left-0 right-0">
+      <div className="max-w-[1536px] mx-auto z-10 absolute top-0 left-0 right-0">
         {/* Top Buttons */}
         <div className="flex flex-col lg:flex-row justify-center items-center gap-10 pt-16">
           {buttons.map((item, i) => (
@@ -77,12 +77,12 @@ const Footer = () => {
         <div className="h-[1px] mx-5 lg:mx-0 bg-[#2b2121] my-10" />
 
         {/* Grid Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 mx-10 md:mx-24 text-xs gap-5 md:gap-10 pb-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 mx-10 md:mx- text-lg leading-7 gap-5 md:gap-10 pb-10">
           {/* About Us */}
           <div className="text-black">
             <h3 className="text-2xl font-semibold">About Us</h3>
             <div className="h-[1px] bg-[#2b2121] mb-5 w-[80%]" />
-            <p className="leading-5 text-justify">
+            <p className="leading-7 text-justify">
               Viqarunnisa Noon School & College is an all-girls educational institute in Baily Road, Dhaka, Bangladesh.
               It has 4 campuses and around 25,000 students.
             </p>

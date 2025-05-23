@@ -108,7 +108,7 @@ const Navbar: FC<NavbarProps> = ({ selected, setSelected }) => {
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden gap-2 text-[12px] xl:gap-5 xl:text-sm lg:flex">
+        <nav className="hidden gap-2 text-[12px] xl:gap-5 xl:text-lg lg:flex">
           {navList.map((item, i) => (
             <div
               key={i}
