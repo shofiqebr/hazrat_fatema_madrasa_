@@ -1,24 +1,17 @@
-'use client';
-
-import { useState } from 'react';
-import BannerSlider from './components/BannerSlider';
+"use client";
+import BannerSlider from "../components/BannerSlider";
 // import Courses from './components/Courses';
 // import GoverningBody from './components/GoverningBody';
-import Navbar from './components/Navbar';
-import Slider1 from './components/Slider1';
-import Slider2 from './components/Slider2';
-import Courses from './components/Courses';
-import SliderGallery from './components/SliderGallery';
-import Footer from './components/Footer';
+import Slider1 from "../components/Slider1";
+import Slider2 from "../components/Slider2";
+import Courses from "../components/Courses";
+import SliderGallery from "../components/SliderGallery";
 // import SliderGallery from './components/SliderGallery';
 
 export default function Home() {
-  const [selected, setSelected] = useState<string>('ALL');
-
   return (
     <div>
       <BannerSlider />
-      <Navbar selected={selected} setSelected={setSelected} />
 
       <div className="max-w-[1536px] mx-auto">
         <div className="grid lg:grid-cols-7 grid-cols-1 gap-5 lg:gap-0 xl:gap-5 mx-2 pt-5">
@@ -35,8 +28,6 @@ export default function Home() {
       </div>
 
       <SliderGallery />
-
-      <Footer/>
     </div>
   );
 }

@@ -1,98 +1,107 @@
 // components/Navbar.tsx
 'use client';
 
-import { useState, FC } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaBars, FaCaretDown } from 'react-icons/fa';
-import logo from '@/assets/logo.png';             
+import logo from '@/assets/logo.png';
+
 type NavItem = {
   name: string;
   link: string;
   subLink?: { name: string; link: string }[];
 };
 
-interface NavbarProps {
-  selected: string;
-  setSelected: (v: string) => void;
-}
+// interface NavbarProps {
+//   selected: string;
+//   setSelected: (v: string) => void;
+// }
 
 const navList: NavItem[] = [
-  { name: 'Home', link: '/' },
+  { name: 'হোম', link: '/' },
   {
-    name: 'About us',
+    name: 'আমাদের সম্পর্কে',
     link: '/aboutus',
     subLink: [
-      { name: 'Message from Chairman', link: '/aboutus' },
-      { name: 'Message from Principal', link: '/aboutus' },
-      { name: 'Governing Body', link: '/aboutus' },
-      { name: 'Master Plan', link: '/aboutus' },
-      { name: 'History', link: '/aboutus' },
-      { name: 'Vision and Objectives', link: '/aboutus' },
-      { name: 'Infrastructure', link: '/aboutus' },
+      { name: 'চেয়ারম্যান এর বার্তা', link: '/aboutus' },
+      { name: 'প্রিন্সিপালের বার্তা', link: '/aboutus' },
+      { name: 'পরিচালনা পর্ষদ', link: '/aboutus' },
+      { name: 'মাস্টার প্ল্যান', link: '/aboutus' },
+      { name: 'ইতিহাস', link: '/aboutus' },
+      { name: 'ভিশন ও উদ্দেশ্য', link: '/aboutus' },
+      { name: 'পরিকাঠামো', link: '/aboutus' },
     ],
   },
-   {
-            name: 'Academic', link: '/academic', subLink: [
-                { name: ' Code of Conducts', link: '/academic' },
-                { name: 'Guideline for Parents', link: '/academic' },
-                { name: 'Dress Code', link: '/academic' },
-                { name: 'HomeWork And Class Lecture Documents', link: '/academic' },
-                { name: 'Lesson Plan', link: '/academic' },
-                { name: 'Academic calendar', link: '/academic' },
-                { name: 'Syllabus', link: '/academic' },
-                { name: 'Class Routine', link: '/academic' },
-                { name: 'Co-curricular Activities', link: '/academic' },
-            ]
-        },
-        {
-            name: 'Information', link: '/information',  subLink: [
-                { name: 'Notice Board', link: '/information' },
-                { name: 'Payment Procedure', link: '/information' },
-                { name: 'Facilities', link: '/information' },
-                { name: 'News and Events', link: '/information' },
-                { name: 'Our Achievements', link: '/information' },
-                { name: 'List of Holidays', link: '/information' },
-                { name: 'Teachers Info', link: '/information' },
-                { name: 'Student Info', link: '/information' },
-                { name: 'Policies & Guidelines', link: '/information' },
-                { name: 'Library', link: '/information' },
-                { name: 'Health and Environmental Awarness Info', link: '/information' },
-            ]
-        },
-        {
-            name: 'Admission', link: '/admission', subLink: [
-                { name: 'Apply Now', link: '/admission' },
-                { name: 'Fast Facts‌', link: '/admission' },
-                { name: 'Fees & Payment', link: '/admission' },
-                { name: 'Scholarships', link: '/admission' },
-                { name: 'Transfer Procedures', link: '/admission' },
-            ]
-        },
-        {
-            name: 'Campus Life ', link: '/campuslife', subLink: [
-                { name: 'Photo Gallery', link: '/campuslife' },
-                { name: 'Video Gallery', link: '/campuslife' },
-            ]
-        },
-        {
-            name: 'Employment', link: '/employment',  subLink: [
-                { name: 'At a Glance', link: '/employment' },
-                { name: 'Employment Circulars‌', link: '/employment' },
-                { name: 'Recruitment Exam Results', link: '/employment' },
-            ]
-        },
-        { name: 'Contact', link: '/contact', },
-        {
-            name: 'স্বাধীনতা কর্নার ', link: '/freedomcorner',  subLink: [
-                { name: 'নোটিশ', link: '/freedomcorner' },
-                { name: 'ছবির গ্যালারী', link: '/freedomcorner' },
-                { name: 'ভিডিও গ্যালারী', link: '/freedomcorner' },
-            ]
-        },
+  {
+    name: 'একাডেমিক',
+    link: '/academic',
+    subLink: [
+      { name: 'আচরণবিধি', link: '/academic' },
+      { name: 'অভিভাবকদের জন্য নির্দেশিকা', link: '/academic' },
+      { name: 'পোশাকবিধি', link: '/academic' },
+      { name: 'হোমওয়ার্ক ও ক্লাস লেকচার ডকুমেন্টস', link: '/academic' },
+      { name: 'লেসন প্ল্যান', link: '/academic' },
+      { name: 'একাডেমিক ক্যালেন্ডার', link: '/academic' },
+      { name: 'সিলেবাস', link: '/academic' },
+      { name: 'ক্লাস রুটিন', link: '/academic' },
+      { name: 'সহ-পাঠক্রমিক কার্যক্রম', link: '/academic' },
+    ],
+  },
+  {
+    name: 'তথ্য',
+    link: '/information',
+    subLink: [
+      { name: 'নোটিশ বোর্ড', link: '/notices' },
+      { name: 'পেমেন্ট পদ্ধতি', link: '/information' },
+      { name: 'সুবিধাসমূহ', link: '/information' },
+      { name: 'সংবাদ ও ইভেন্ট', link: '/information' },
+      { name: 'আমাদের অর্জনসমূহ', link: '/information' },
+      { name: 'ছুটির তালিকা', link: '/information' },
+      { name: 'শিক্ষক তথ্য', link: '/information' },
+      { name: 'শিক্ষার্থী তথ্য', link: '/information' },
+      { name: 'নীতিমালা ও নির্দেশিকা', link: '/information' },
+      { name: 'লাইব্রেরি', link: '/information' },
+      { name: 'স্বাস্থ্য ও পরিবেশ সচেতনতা তথ্য', link: '/information' },
+    ],
+  },
+  {
+    name: 'ভর্তি',
+    link: '/admission',
+    subLink: [
+      { name: 'আবেদন করুন', link: '/admission' },
+      { name: 'ফাস্ট ফ্যাক্টস', link: '/admission' },
+      { name: 'ফি ও পেমেন্ট', link: '/admission' },
+      { name: 'স্কলারশিপ', link: '/admission' },
+      { name: 'ট্রান্সফার পদ্ধতি', link: '/admission' },
+    ],
+  },
+  {
+    name: 'ক্যাম্পাস জীবন',
+    link: '/campuslife',
+    subLink: [
+      { name: 'ছবির গ্যালারি', link: '/campuslife' },
+      { name: 'ভিডিও গ্যালারি', link: '/campuslife' },
+    ],
+  },
+  {
+    name: 'চাকরি',
+    link: '/employment',
+    subLink: [
+      { name: 'সংক্ষেপে', link: '/employment' },
+      { name: 'চাকরির বিজ্ঞপ্তি', link: '/employment' },
+      { name: 'নিয়োগ পরীক্ষার ফলাফল', link: '/employment' },
+    ],
+  },
+  { name: 'যোগাযোগ', link: '/contact' },
+  {
+    name: 'ড্যাশবোর্ড',
+    link: '/dashboard',
+  },
 ];
 
-const Navbar: FC<NavbarProps> = ({ selected, setSelected }) => {
+const Navbar = () => {
+    const [selected, setSelected] = useState<string>("ALL");
   const [toggle, setToggle] = useState(false);
   const [activeSubIndex, setActiveSubIndex] = useState<number | null>(null);
 
@@ -104,7 +113,7 @@ const Navbar: FC<NavbarProps> = ({ selected, setSelected }) => {
       <div className="mx-auto flex max-w-[1536px] items-center justify-between gap-1 lg:px-2 sm:px-4">
         {/* Logo */}
         <Link href="/">
-          <Image src={logo} alt="Logo" className="h-12 w-auto" priority />
+          <Image src={logo} alt="Logo" className="h-16 w-auto" priority />
         </Link>
 
         {/* Desktop nav */}
@@ -137,11 +146,11 @@ const Navbar: FC<NavbarProps> = ({ selected, setSelected }) => {
 
         {/* Desktop login button */}
         <Link
-          href="https://education.ionicerp.xyz"
+          href="/login"
           className="hidden lg:block"
         >
           <button className="rounded-lg bg-[#FF0000] px-4 py-2 font-bold text-white lg:text-xs xl:text-base">
-            Parents Login
+            লগইন
           </button>
         </Link>
 
@@ -194,7 +203,7 @@ const Navbar: FC<NavbarProps> = ({ selected, setSelected }) => {
                 onClick={() => setToggle(false)}
               >
                 <button className="w-full rounded-lg bg-[#FF0000] px-4 py-2 font-bold text-white">
-                  Parents Login
+                  লগইন
                 </button>
               </Link>
             </div>

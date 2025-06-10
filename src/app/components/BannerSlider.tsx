@@ -3,7 +3,6 @@
 
 import { FC } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
@@ -17,15 +16,6 @@ const images = [banner1, banner2, banner3];
 
 const BannerSlider: FC = () => (
   <div className="relative">
-    <Link
-      href="#"
-      className="absolute top-2 lg:top-10 right-2 lg:right-20
-                 z-10 rounded lg:rounded-2xl bg-[#FF0000]
-                 px-2 lg:px-8 py-1 lg:py-3 text-xs lg:text-base font-bold text-white"
-    >
-      Login
-    </Link>
-
     <Swiper
       spaceBetween={30}
       centeredSlides
