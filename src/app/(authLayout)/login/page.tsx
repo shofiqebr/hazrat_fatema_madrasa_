@@ -1,37 +1,43 @@
 'use client';
 
-import React, { useState } from 'react';
-import Image from 'next/image';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
-import logo from "../../../assets/logo.png"
-
-const loginUser = async ({ id, password }: { id: string; password: string }) => {
-  const response = await axios.post('http://localhost:5000/api/auth/login', {
-    id,
-    password,
-  });
-  return response.data;
-};
+import Image from 'next/image';
+import logo from '../../../assets/logo.png';
+import { useCrudCreate } from '@/hooks/useCrud';
+import { useUser } from '@/context/UserContext';
+import { AxiosError } from 'axios';
 
 const LoginPage = () => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
+  const { setUser } = useUser();
 
-  const { mutate, isPending, error }: any = useMutation({
-    mutationFn: loginUser,
-    onSuccess: (data) => {
-      localStorage.setItem('token', data.token); // Adjust based on your API response
-      localStorage.setItem('user', JSON.stringify(data.user)); // Optional
-      router.push('/'); // Change route as needed
-    },
-  });
+  const {
+    mutate: login,
+    isPending,
+    error,
+  } = useCrudCreate<{ id: string; password: string }, any>(
+    '/auth/login',
+    ['auth']
+  );
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    mutate({ id, password });
+    login(
+      { id, password },
+      {
+        onSuccess: (data) => {
+          localStorage.setItem('user', JSON.stringify(data.data));
+          setUser(data.data);
+          router.push('/');
+        },
+        onError: (err) => {
+          console.error('Login failed:', err);
+        },
+      }
+    );
   };
 
   return (
@@ -39,11 +45,12 @@ const LoginPage = () => {
       <div className="bg-white rounded-xl shadow-lg flex w-full max-w-4xl border border-green-500 overflow-hidden">
         {/* Left side - Branding */}
         <div className="w-1/2 bg-black text-white p-8 flex flex-col justify-center items-center">
-        <div className='bg-white rounded-full'>
-
-          <Image src={logo} alt="লোগো" width={80} height={80} />
-        </div>
-          <h1 className="text-4xl font-bold text-center text-green-500 mb-2 mt-2">হযরত ফাতেমা রাঃ মহিলা মাদ্রাসা</h1>
+          <div className="bg-white rounded-full">
+            <Image src={logo} alt="লোগো" width={80} height={80} />
+          </div>
+          <h1 className="text-4xl font-bold text-center text-green-500 mb-2 mt-2">
+            হযরত ফাতেমা রাঃ মহিলা মাদ্রাসা
+          </h1>
           <p className="text-center text-sm">লগইন করে আপনার তথ্য দেখতে পারেন</p>
         </div>
 
@@ -81,7 +88,7 @@ const LoginPage = () => {
 
             {error && (
               <p className="text-red-600 text-sm">
-                {(error.response?.data?.message as string) || 'লগইন ব্যর্থ হয়েছে।'}
+                {(error as AxiosError)?.response?.data?.message || 'লগইন ব্যর্থ হয়েছে।'}
               </p>
             )}
 

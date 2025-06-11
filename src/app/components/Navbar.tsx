@@ -6,17 +6,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FaBars, FaCaretDown } from 'react-icons/fa';
 import logo from '@/assets/logo.png';
+import { useUser } from '@/context/UserContext';
 
 type NavItem = {
   name: string;
   link: string;
   subLink?: { name: string; link: string }[];
 };
-
-// interface NavbarProps {
-//   selected: string;
-//   setSelected: (v: string) => void;
-// }
 
 const navList: NavItem[] = [
   { name: 'হোম', link: '/' },
@@ -94,19 +90,30 @@ const navList: NavItem[] = [
     ],
   },
   { name: 'যোগাযোগ', link: '/contact' },
-  {
-    name: 'ড্যাশবোর্ড',
-    link: '/dashboard',
-  },
 ];
 
 const Navbar = () => {
-    const [selected, setSelected] = useState<string>("ALL");
+  const { user } = useUser();
+  const dynamicNavList = [...navList];
+
+  if (user && !dynamicNavList.some(item => item.link === '/dashboard')) {
+    dynamicNavList.push({
+      name: 'ড্যাশবোর্ড',
+      link: '/dashboard',
+    });
+  }
+
+  const [selected, setSelected] = useState<string>("ALL");
   const [toggle, setToggle] = useState(false);
   const [activeSubIndex, setActiveSubIndex] = useState<number | null>(null);
 
   const handleSubToggle = (index: number) =>
     setActiveSubIndex(activeSubIndex === index ? null : index);
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    window.location.reload(); // force reload after logout
+  };
 
   return (
     <header className="sticky top-0 z-20 bg-[#EBEBEB] py-1">
@@ -116,13 +123,12 @@ const Navbar = () => {
           <Image src={logo} alt="Logo" className="h-16 w-auto" priority />
         </Link>
 
-        {/* Desktop nav */}
+        {/* Desktop Navigation */}
         <nav className="hidden gap-2 text-[12px] xl:gap-5 xl:text-lg lg:flex">
-          {navList.map((item, i) => (
+          {dynamicNavList.map((item, i) => (
             <div
               key={i}
-              className="group relative flex items-center gap-1 pb-[4px] pt-[4px] font-semibold
-                         hover:border-b-4 hover:pb-0 border-[#FF0000]"
+              className="group relative flex items-center gap-1 pb-[4px] pt-[4px] font-semibold hover:border-b-4 hover:pb-0 border-[#FF0000]"
             >
               <Link href={item.link}>{item.name}</Link>
               {item.subLink && <FaCaretDown className="text-[#FF0000]" />}
@@ -144,17 +150,23 @@ const Navbar = () => {
           ))}
         </nav>
 
-        {/* Desktop login button */}
-        <Link
-          href="/login"
-          className="hidden lg:block"
-        >
-          <button className="rounded-lg bg-[#FF0000] px-4 py-2 font-bold text-white lg:text-xs xl:text-base">
-            লগইন
+        {/* Desktop Auth Button */}
+        {!user ? (
+          <Link href="/login" className="hidden lg:block">
+            <button className="rounded-lg bg-green-600 px-4 py-2 font-bold text-white lg:text-xs xl:text-base">
+              Login
+            </button>
+          </Link>
+        ) : (
+          <button
+            onClick={handleLogout}
+            className="rounded-lg bg-[#FF0000] px-4 py-2 font-bold text-white lg:text-xs xl:text-base"
+          >
+            Logout
           </button>
-        </Link>
+        )}
 
-        {/* Mobile toggle */}
+        {/* Mobile Navigation */}
         <div className="lg:hidden">
           <button
             onClick={() => setToggle(!toggle)}
@@ -165,7 +177,7 @@ const Navbar = () => {
 
           {toggle && (
             <div className="absolute right-0 top-full w-full flex-col gap-3 border bg-white p-3 lg:w-60">
-              {navList.map((item, i) => (
+              {dynamicNavList.map((item, i) => (
                 <div key={i} className="flex flex-col font-semibold">
                   <div
                     className="flex items-center justify-between border-b border-[#FF0000] pb-[4px] pt-[4px]"
@@ -175,9 +187,8 @@ const Navbar = () => {
                     {item.subLink && <FaCaretDown className="text-[#FF0000]" />}
                   </div>
 
-                  {/* mobile sub‑menu */}
                   {activeSubIndex === i && item.subLink && (
-                    <div className="ml-5 flex flex-col gap-3 border pl-3">
+                    <div className="ml-5 flex flex-col gap-3 border-l pl-3">
                       {item.subLink.map((s, si) => (
                         <Link
                           key={si}
@@ -196,16 +207,28 @@ const Navbar = () => {
                 </div>
               ))}
 
-              {/* Mobile login btn */}
-              <Link
-                href="https://education.ionicerp.xyz"
-                className="border-b border-[#FF0000] pb-[4px] pt-[4px]"
-                onClick={() => setToggle(false)}
-              >
-                <button className="w-full rounded-lg bg-[#FF0000] px-4 py-2 font-bold text-white">
-                  লগইন
+              {/* Mobile Auth Button */}
+              {!user ? (
+                <Link
+                  href="/login"
+                  className="mt-2 border-b border-[#FF0000] pb-[4px] pt-[4px]"
+                  onClick={() => setToggle(false)}
+                >
+                  <button className="w-full rounded-lg bg-green-600 px-4 py-2 font-bold text-white">
+                    লগইন
+                  </button>
+                </Link>
+              ) : (
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    setToggle(false);
+                  }}
+                  className="mt-2 w-full rounded-lg bg-[#FF0000] px-4 py-2 font-bold text-white"
+                >
+                  লগআউট
                 </button>
-              </Link>
+              )}
             </div>
           )}
         </div>
