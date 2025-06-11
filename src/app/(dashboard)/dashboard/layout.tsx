@@ -81,6 +81,20 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       path: '/dashboard/result'
     },
     {
+      key: 'attendance',
+      icon: <FaCalendarAlt className="h-5 w-5" />,
+      label: 'Attendance Management',
+      roles: ['admin', 'manager', 'employee'],
+      path: '/dashboard/attendance'
+    },
+    {
+      key: 'payment',
+      icon: <FaCalendarAlt className="h-5 w-5" />,
+      label: 'Payment Management',
+      roles: ['admin', 'manager', 'employee'],
+      path: '/dashboard/payment'
+    },
+    {
       key: 'settings',
       icon: <FaCog className="h-5 w-5" />,
       label: 'Settings',
