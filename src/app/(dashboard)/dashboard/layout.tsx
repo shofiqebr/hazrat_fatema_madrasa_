@@ -67,11 +67,18 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       path: '/dashboard/payroll'
     },
     {
-      key: 'leave',
+      key: 'notice',
       icon: <FaCalendarAlt className="h-5 w-5" />,
-      label: 'Leave Management',
+      label: 'Notice Management',
       roles: ['admin', 'manager', 'employee'],
-      path: '/dashboard/leave'
+      path: '/dashboard/notice'
+    },
+    {
+      key: 'result',
+      icon: <FaCalendarAlt className="h-5 w-5" />,
+      label: 'Result Management',
+      roles: ['admin', 'manager', 'employee'],
+      path: '/dashboard/result'
     },
     {
       key: 'settings',
