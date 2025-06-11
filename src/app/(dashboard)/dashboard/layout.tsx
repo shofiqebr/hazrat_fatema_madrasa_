@@ -39,18 +39,25 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       path: '/dashboard'
     },
     {
-      key: 'employees',
+      key: 'teacher',
       icon: <FaUsers className="h-5 w-5" />,
-      label: 'Employees',
+      label: 'Teachers',
       roles: ['admin', 'manager'],
-      path: '/dashboard/employees'
+      path: '/dashboard/teacher'
     },
     {
-      key: 'departments',
+      key: 'student',
+      icon: <FaUsers className="h-5 w-5" />,
+      label: 'Students',
+      roles: ['admin', 'manager'],
+      path: '/dashboard/student'
+    },
+    {
+      key: 'homework',
       icon: <FaBuilding className="h-5 w-5" />,
-      label: 'Departments',
+      label: 'Homework',
       roles: ['admin'],
-      path: '/dashboard/departments'
+      path: '/dashboard/homework'
     },
     {
       key: 'payroll',
