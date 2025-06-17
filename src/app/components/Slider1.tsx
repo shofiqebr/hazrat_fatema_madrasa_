@@ -20,7 +20,7 @@ const images = [
 
 const Slider1 = () => {
   return (
-    <div className="relative border w-full h-[500px]">
+    <div className="relative  w-full h-[500px]">
       <Swiper
         spaceBetween={30}
         centeredSlides
@@ -28,7 +28,7 @@ const Slider1 = () => {
           delay: 3500,
           disableOnInteraction: false,
         }}
-        navigation
+        // navigation
         modules={[Autoplay, Pagination, Navigation]}
         className="w-full h-full"
       >
