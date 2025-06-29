@@ -41,7 +41,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-green-50 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="bg-white rounded-xl shadow-lg flex w-full max-w-4xl border border-green-500 overflow-hidden">
         {/* Left side - Branding */}
         <div className="w-1/2 bg-black text-white p-8 flex flex-col justify-center items-center">

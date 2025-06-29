@@ -12,6 +12,9 @@ import {
   FaChartBar,
   FaCog
 } from 'react-icons/fa';
+import { PiChalkboardTeacherFill } from "react-icons/pi";
+import { MdCoPresent, MdHotelClass } from 'react-icons/md';
+import { BiSolidReport } from 'react-icons/bi';
 
 type DashboardLayoutProps = {
   children: ReactNode;
@@ -31,77 +34,78 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const userRole: 'admin' | 'manager' | 'employee' = 'admin'; // Replace with your auth logic
 
   const menuItems: MenuItem[] = [
-    {
-      key: 'dashboard',
-      icon: <FaChartBar className="h-5 w-5" />,
-      label: 'Dashboard',
-      roles: ['admin', 'manager', 'employee'],
-      path: '/dashboard'
-    },
-    {
-      key: 'teacher',
-      icon: <FaUsers className="h-5 w-5" />,
-      label: 'Teachers',
-      roles: ['admin', 'manager'],
-      path: '/dashboard/teacher'
-    },
-    {
-      key: 'student',
-      icon: <FaUsers className="h-5 w-5" />,
-      label: 'Students',
-      roles: ['admin', 'manager'],
-      path: '/dashboard/student'
-    },
-    {
-      key: 'homework',
-      icon: <FaBuilding className="h-5 w-5" />,
-      label: 'Homework',
-      roles: ['admin'],
-      path: '/dashboard/homework'
-    },
-    {
-      key: 'payroll',
-      icon: <FaDollarSign className="h-5 w-5" />,
-      label: 'Payroll',
-      roles: ['admin', 'manager'],
-      path: '/dashboard/payroll'
-    },
-    {
-      key: 'notice',
-      icon: <FaCalendarAlt className="h-5 w-5" />,
-      label: 'Notice Management',
-      roles: ['admin', 'manager', 'employee'],
-      path: '/dashboard/notice'
-    },
-    {
-      key: 'result',
-      icon: <FaCalendarAlt className="h-5 w-5" />,
-      label: 'Result Management',
-      roles: ['admin', 'manager', 'employee'],
-      path: '/dashboard/result'
-    },
-    {
-      key: 'attendance',
-      icon: <FaCalendarAlt className="h-5 w-5" />,
-      label: 'Attendance Management',
-      roles: ['admin', 'manager', 'employee'],
-      path: '/dashboard/attendance'
-    },
-    {
-      key: 'payment',
-      icon: <FaCalendarAlt className="h-5 w-5" />,
-      label: 'Payment Management',
-      roles: ['admin', 'manager', 'employee'],
-      path: '/dashboard/payment'
-    },
-    {
-      key: 'settings',
-      icon: <FaCog className="h-5 w-5" />,
-      label: 'Settings',
-      roles: ['admin', 'manager', 'employee'],
-      path: '/dashboard/settings'
-    }
-  ];
+  {
+    key: 'dashboard',
+    icon: <FaChartBar className="h-5 w-5" />,
+    label: 'ড্যাশবোর্ড',
+    roles: ['admin', 'manager', 'employee'],
+    path: '/dashboard'
+  },
+  {
+    key: 'teacher',
+    icon: <PiChalkboardTeacherFill className="h-5 w-5" />,
+    label: 'শিক্ষকবৃন্দ',
+    roles: ['admin', 'manager'],
+    path: '/dashboard/teacher'
+  },
+  {
+    key: 'student',
+    icon: <FaUsers className="h-5 w-5" />,
+    label: 'শিক্ষার্থীরা',
+    roles: ['admin', 'manager'],
+    path: '/dashboard/student'
+  },
+  {
+    key: 'homework',
+    icon: <FaBuilding className="h-5 w-5" />,
+    label: 'হোমওয়ার্ক',
+    roles: ['admin'],
+    path: '/dashboard/homework'
+  },
+  {
+    key: 'notice',
+    icon: <FaCalendarAlt className="h-5 w-5" />,
+    label: 'নোটিশ ব্যবস্থাপনা',
+    roles: ['admin', 'manager', 'employee'],
+    path: '/dashboard/notice'
+  },
+  {
+    key: 'result',
+    icon: <BiSolidReport className="h-5 w-5" />,
+    label: 'ফলাফল ব্যবস্থাপনা',
+    roles: ['admin', 'manager', 'employee'],
+    path: '/dashboard/result'
+  },
+  {
+    key: 'attendance',
+    icon: <MdCoPresent className="h-5 w-5" />,
+    label: 'উপস্থিতি ব্যবস্থাপনা',
+    roles: ['admin', 'manager', 'employee'],
+    path: '/dashboard/attendance'
+  },
+  {
+    key: 'payment',
+    icon: <FaDollarSign className="h-5 w-5" />,
+    label: 'পেমেন্ট ব্যবস্থাপনা',
+    roles: ['admin', 'manager', 'employee'],
+    path: '/dashboard/payment'
+  },
+  {
+    key: 'class',
+    icon: <MdHotelClass className="h-5 w-5" />,
+    label: 'ক্লাস ব্যবস্থাপনা',
+    roles: ['admin', 'manager', 'employee'],
+    path: '/dashboard/class'
+  },
+  {
+    key: 'settings',
+    icon: <FaCog className="h-5 w-5" />,
+    label: 'সেটিংস',
+    roles: ['admin', 'manager', 'employee'],
+    path: '/dashboard/settings'
+  }
+];
+
 
   const filteredMenuItems = menuItems.filter(item => item.roles.includes(userRole));
 

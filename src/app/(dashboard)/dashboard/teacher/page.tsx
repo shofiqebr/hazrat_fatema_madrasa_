@@ -60,6 +60,8 @@ const TeacherManagement = () => {
   const updateTeacher = useCrudUpdate<Teacher>('/teacher', ['teacher']);
   const deleteTeacher = useCrudDelete('/teacher', ['teacher']);
 
+  // console.log(teachers)
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
 
@@ -119,41 +121,44 @@ const TeacherManagement = () => {
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <table className="w-full border text-sm">
-          <thead>
-            <tr className="bg-gray-200">
-              <th className="p-2 border">Name</th>
-              <th className="p-2 border">ID</th>
-              <th className="p-2 border">Phone</th>
-              <th className="p-2 border">Designation</th>
-              <th className="p-2 border">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {teachers?.map((teacher) => (
-              <tr key={teacher._id} className="border-t">
-                <td className="p-2 border">{teacher.name}</td>
-                <td className="p-2 border">{teacher.id}</td>
-                <td className="p-2 border">{teacher.phone}</td>
-                <td className="p-2 border">{teacher.designation}</td>
-                <td className="p-2 border flex gap-2">
-                  <button
-                    onClick={() => handleEdit(teacher)}
-                    className="text-blue-600 hover:underline"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => handleDelete(teacher._id!)}
-                    className="text-red-600 hover:underline"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+       <table className="w-full border text-sm ">
+  <thead>
+    <tr className="bg-gray-200">
+      <th className="p-2 border">নাম</th>
+      <th className="p-2 border">আইডি</th>
+      <th className="p-2 border">education Qualification</th>
+      <th className="p-2 border">ফোন</th>
+      <th className="p-2 border">পদবী</th>
+      <th className="p-2 border">অ্যাকশন</th>
+    </tr>
+  </thead>
+  <tbody>
+    {teachers?.map((teacher) => (
+      <tr key={teacher._id} className="border-t">
+        <td className="p-2 border">{teacher.name}</td>
+        <td className="p-2 border">{teacher.id}</td>
+        <td className="p-2 border">{teacher.educationQualification}</td>
+        <td className="p-2 border">{teacher.phone}</td>
+        <td className="p-2 border">{teacher.designation}</td>
+        <td className="p-2 border flex gap-2 text-center">
+          <button
+            onClick={() => handleEdit(teacher)}
+            className="bg-blue-500 text-white px-3 py-1 rounded"
+          >
+            তৈরি করুন
+          </button>
+          <button
+            onClick={() => handleDelete(teacher._id!)}
+            className="px-3 py-1 bg-red-600 text-white rounded"
+          >
+            মুছে ফেলুন
+          </button>
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
       )}
 
       {showModal && (

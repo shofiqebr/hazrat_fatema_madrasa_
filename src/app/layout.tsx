@@ -1,19 +1,12 @@
-
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { TanstackProvider } from "./components/providers/tanstack-provider";
 import { AppProviders } from "@/providers/AppProviders";
+import bgImage from "@/assets/bgImage.jpg"; // Your image in src/assets
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
+const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -25,20 +18,30 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        suppressHydrationWarning
-      >
-        <TanstackProvider>
-          <AppProviders>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning>
+        <div
+          className="relative min-h-screen w-full bg-gray-100 "
+          // style={{
+          //   backgroundImage: `url(${bgImage.src})`,
+          //   backgroundSize: "cover",
+          //   backgroundPosition: "center",
+          // }}
+        >
+          {/* Opacity layer */}
+       {/* <div className="absolute inset-0 bg-white/90 z-0"></div> */}
 
-          {children}
-          </AppProviders>
-      
-        </TanstackProvider>
+
+          {/* App content */}
+          <div className="relative z-10">
+            <TanstackProvider>
+              <AppProviders>
+                {children}
+              </AppProviders>
+            </TanstackProvider>
+          </div>
+        </div>
       </body>
     </html>
   );

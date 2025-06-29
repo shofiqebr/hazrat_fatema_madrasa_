@@ -20,7 +20,7 @@ const images = [
 
 const Slider1 = () => {
   return (
-    <div className="relative border w-full h-[500px]">
+    <div className="relative  w-full h-[500px] rounded">
       <Swiper
         spaceBetween={30}
         centeredSlides
@@ -28,18 +28,18 @@ const Slider1 = () => {
           delay: 3500,
           disableOnInteraction: false,
         }}
-        navigation
+        // navigation
         modules={[Autoplay, Pagination, Navigation]}
         className="w-full h-full"
       >
         {images.map((image, i) => (
           <SwiperSlide key={i}>
-            <div className="relative w-full h-[500px]">
+            <div className="relative w-full h-[500px] rounded">
               <Image
                 src={image.src}
                 alt={image.alt}
                 fill
-                className="object-cover"
+                className="object-cover rounded"
                 priority={i === 0}
               />
             </div>
